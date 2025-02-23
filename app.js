@@ -13,7 +13,7 @@ const studentRoutes = require("./routes/student");
 const cors = require("cors");
 const allowedOrigins = [
   "http://localhost:4200", // For local Angular dev
-  "https://your-netlify-app.netlify.app", // For your deployed frontend
+  "https://library2004.netlify.app/", // For your deployed frontend
 ];
 const corsOptions = {
   origin: function (origin, callback) {
