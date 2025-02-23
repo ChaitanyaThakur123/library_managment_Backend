@@ -11,11 +11,20 @@ const loginRoutes = require("./routes/login");
 const bookRoutes = require("./routes/book");
 const studentRoutes = require("./routes/student");
 const cors = require("cors");
+const allowedOrigins = [
+  "http://localhost:4200", // For local Angular dev
+  "https://your-netlify-app.netlify.app", // For your deployed frontend
+];
 const corsOptions = {
-  origin: "http://localhost:4200", // Replace with your Angular app's URL
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true); // Allow requests if origin is in the list or it's a non-browser request
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  credentials: true, // Enable cookies to be sent
-  preflightContinue: false,
+  credentials: true, // Allow cookies if needed
   optionsSuccessStatus: 204,
 };
 app.use(cors(corsOptions));
